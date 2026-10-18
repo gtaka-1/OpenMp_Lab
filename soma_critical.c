@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
     omp_set_num_threads(nt);
     uint8_t *v = malloc(N);
     if (!v) { printf("sem memoria\n"); return 1; }
-    for (long i = 0; i < N; i++) v[i] = i % 10;   /* dados sempre iguais */
+    for (long i = 0; i < N; i++) v[i] = i % 10; 
 
     double tempo_total = 0; unsigned long long soma = 0;
     for (int e = 0; e < 10; e++) {
