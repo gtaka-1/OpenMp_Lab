@@ -16,7 +16,7 @@ double trap_serial(double a, double b, long n) {
     return soma * h;
 }
 
-/* Versao 2: paralela com critical (cada thread calcula sua parte local) */
+/* Versao 2: paralela com critical */
 double trap_critical(double a, double b, long n, int nt) {
     double h = (b - a) / n, total = 0.0;
     #pragma omp parallel num_threads(nt)
@@ -35,7 +35,7 @@ double trap_critical(double a, double b, long n, int nt) {
     return total;
 }
 
-/* Versao 3: parallel for + reduction (versao final, pag. 38) */
+/* Versao 3: parallel for + reduction  */
 double trap_reduction(double a, double b, long n, int nt) {
     double h = (b - a) / n, total = 0.0;
     #pragma omp parallel for num_threads(nt) reduction(+:total)
@@ -48,7 +48,7 @@ double trap_reduction(double a, double b, long n, int nt) {
 
 int main(int argc, char **argv) {
     int nt = (argc > 1) ? atoi(argv[1]) : 4;
-    double a = 0.0, b = 3.0; long n = 100000000L;  /* resultado exato = 9 */
+    double a = 0.0, b = 3.0; long n = 100000000L;
     double t, r;
 
     t = omp_get_wtime(); r = trap_serial(a, b, n);
